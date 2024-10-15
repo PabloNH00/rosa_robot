@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="rosa">
+
+  <xacro:macro name="lidar_sensor" params="name parent *origin">
+    <link name="${name}_link">
+      <visual>
+     <geometry> 
+        <mesh filename="file://$(find rosa_description)/description/rosa/meshes/hokuyo.dae" scale="1 1 1"/> 
+     </geometry>
+    </visual>
+      <collision>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.05" length="0.1"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.1"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+      </inertial>
+    </link>
+    
+    <joint name="${name}_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+      <xacro:insert_block name="origin"/>
+    </joint>
+    
+    <gazebo reference="${name}_link">
+      <sensor type="ray" name="${name}">
+      <visualize>true</visualize>
+        <update_rate>20</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>1440</samples>
+              <resolution>0.25*(360/1440)</resolution>
+              <min_angle>-1.5307</min_angle>
+              <max_angle>1.5307</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.07</min>
+            <max>30.0</max>
+            <resolution>0.1</resolution>
+          </range>
+        </ray>
+        <plugin name="laser_controller" filename="libgazebo_ros_ray_sensor.so">
+          <ros>
+            <argument>~/out:=scan</argument>
+          </ros>
+          <output_type>sensor_msgs/LaserScan</output_type>
+          <frame_name>${name}_link</frame_name>
+          <QoS>
+            <reliability>RELIABLE</reliability>
+            <durability>TRANSIENT_LOCAL</durability>
+          </QoS>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+
+</robot>

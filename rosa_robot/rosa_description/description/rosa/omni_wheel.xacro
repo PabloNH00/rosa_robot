@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rosa">
+
+  <xacro:macro name="mechanum_wheel" params="name parent reflect:='false' *origin">
+
+
+   <link name="${name}_link" type="wheel">
+    <inertial>
+      <mass value="0.25" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia  ixx="0.04" ixy="0.0007" ixz="0.0"
+                  iyy="0.02" iyz="0.004" 
+                  izz="0.05" />
+    </inertial>
+
+    <visual>
+     <geometry> 
+     <xacro:if value="${reflect}">
+        <mesh filename="file://$(find rosa_description)/description/rosa/meshes/MECANUM_WHEEL_mhg.dae" scale="1 -1 1"/>
+     </xacro:if>
+     <xacro:unless value="${reflect}">
+        <mesh filename="file://$(find rosa_description)/description/rosa/meshes/MECANUM_WHEEL_mhg.dae" scale="1 1 1"/>
+     </xacro:unless> 
+     </geometry>
+    </visual>
+    <collision>
+     <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+     <geometry>
+	<cylinder length="0.06" radius="0.08"/>
+     </geometry>
+    </collision>
+   </link>
+   
+   <joint name="${name}_joint" type="continuous">
+    <xacro:insert_block name="origin" />
+    <axis xyz="0 1 0" />
+    <joint_properties damping="0.01" friction="0.01" />
+    <parent link="${parent}" />
+    <child link="${name}_link" />
+   </joint>
+   
+  <gazebo reference="${name}_link">
+    <mu1 value="0.1"/>
+    <mu2 value="0.1"/>
+  </gazebo>
+
+  </xacro:macro>
+  
+</robot>
+
+
