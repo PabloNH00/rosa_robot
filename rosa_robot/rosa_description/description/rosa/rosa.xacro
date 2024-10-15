@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<robot name="rosa" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="materials.xacro" />
+  <xacro:include filename="rosa_gazebo.xacro" />
+  <xacro:include filename="omni_wheel.xacro" />
+  <xacro:include filename="rosa_body.xacro" />
+  <xacro:include filename="realsense_d435.xacro" />
+  <xacro:include filename="lidar_sensor.xacro"/>
+
+
+
+<xacro:property name="wheel_x" value="0.35" />
+<xacro:property name="wheel_y" value="0.295" />
+<xacro:property name="wheel_z" value="0.075" />
+
+
+  <!-- Base Macro-->
+  <xacro:rosa_base name="chasis">
+  </xacro:rosa_base>
+
+  <!-- Wheel Macro -->
+  <xacro:mechanum_wheel name="wheel_front_left" parent="base_link">
+  	<origin xyz="${wheel_x} ${wheel_y} 0" rpy="0 0 0" />
+  </xacro:mechanum_wheel>
+
+  <xacro:mechanum_wheel name="wheel_front_right" parent="base_link" reflect="true">
+  	<origin xyz="${wheel_x} -${wheel_y} 0" rpy="0 0 0" />
+  </xacro:mechanum_wheel>
+
+  <xacro:mechanum_wheel name="wheel_back_left" parent="base_link" reflect="true">
+  	<origin xyz="-${wheel_x} ${wheel_y} 0" rpy="0 0 3.14159" />
+  </xacro:mechanum_wheel>
+
+  <xacro:mechanum_wheel name="wheel_back_right" parent="base_link">
+  	<origin xyz="-${wheel_x} -${wheel_y} 0" rpy="0 0 3.14159" />
+  </xacro:mechanum_wheel> 
+
+ <!-- ========= -->
+    <!-- 3D CAMERA -->
+    <xacro:realsense_d435 name="camera" parent="base_link">
+        <origin xyz="0.425 0.0 1.59" rpy="0.0 0.0 0.0"/>
+    </xacro:realsense_d435> 
+    
+
+  <!-- Sensor LiDAR -->
+  <xacro:lidar_sensor name="lidar_sensor" parent="base_link">
+    <origin xyz="0.53 0.0 0.01" rpy="0 0 0"/>
+  </xacro:lidar_sensor> 
+  
+
+<!-- Robot Footprint -->
+  <link name="base_footprint"/>
+  <link name="base_link"/>
+
+  <joint name="footprint_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0.0 0.0 ${wheel_z}" rpy="0 0 0"/>
+  </joint>
+  <joint name="chasis_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="chasis"/>
+    <origin xyz="0.0 0.0 0" rpy="0 0 0"/>
+  </joint>
+
+</robot>
