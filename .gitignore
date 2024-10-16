@@ -28,6 +28,7 @@ srv_gen/
 
 #gitignores or/and logic is not advanced
 _*.py
+!__init__.py
 
 #testing output files:
 .build-version
