@@ -38,6 +38,7 @@ install(
     description
     worlds
     config
+    gz_slam_map
     rviz
   DESTINATION
     share/${PROJECT_NAME}/

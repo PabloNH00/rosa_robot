@@ -1,0 +1,3 @@
+# rosa_launchers_pkg
+This package unifies launchers of the other ones to make it east to launch all components and functionalities at once.
+It is divided in ROSA launchers (rosa.launch.py, rosa_slam.launch.py and rosa_navigation.launch.py) to work with the real robot, and simulation launchers (rosa_gazebo.launch.py, rosa_gazebo_slam.launch.py and rosa_gazebo_navigation.launch.py) to work with the Gazebo simulation.
