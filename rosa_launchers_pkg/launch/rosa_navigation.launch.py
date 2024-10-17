@@ -13,7 +13,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
   
 def generate_launch_description():
   
-  gazebo_launcher_dir = os.path.join(
+  launchers_dir = os.path.join(
         get_package_share_directory('rosa_launchers_pkg'))
   
   rosa_description_dir = os.path.join(
@@ -23,7 +23,7 @@ def generate_launch_description():
         get_package_share_directory('nav2_bringup'))
   
   #Lab map as default for ROSA navigation
-  map_file = os.path.join(rosa_description_dir, '../../../maps', 'rst.yaml')
+  map_file = os.path.join(rosa_description_dir, '../../../../maps', 'rst.yaml')
 
   nav2_params_file = os.path.join(rosa_description_dir, 'config', 'nav2_params.yaml')
 
@@ -53,7 +53,7 @@ def generate_launch_description():
   ld.add_action(
     IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [gazebo_launcher_dir, '/launch/rosa.launch.py']
+            [launchers_dir, '/launch/rosa.launch.py']
         ),
     )
   )
