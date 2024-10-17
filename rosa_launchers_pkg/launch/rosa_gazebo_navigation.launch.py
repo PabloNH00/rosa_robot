@@ -67,7 +67,7 @@ def generate_launch_description():
             'use_sim_time': 'True',
             'params_file': nav2_params_file,
             'slam': 'False',
-            'map': map_file 
+            'map': map_dir
         }.items(),
     ),
   )

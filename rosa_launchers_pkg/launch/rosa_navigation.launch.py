@@ -22,7 +22,8 @@ def generate_launch_description():
   nav2_launcher_dir = os.path.join(
         get_package_share_directory('nav2_bringup'))
   
-  map_file = os.path.join(rosa_description_dir, 'gz_slam_map', 'gaz_world.yaml')
+  #Lab map as default for ROSA navigation
+  map_file = os.path.join(rosa_description_dir, '../../../maps', 'rst.yaml')
 
   nav2_params_file = os.path.join(rosa_description_dir, 'config', 'nav2_params.yaml')
 
@@ -64,10 +65,10 @@ def generate_launch_description():
             [nav2_launcher_dir, '/launch/bringup_launch.py']
         ),
         launch_arguments={
-            'use_sim_time': 'True',
+            'use_sim_time': 'False',
             'params_file': nav2_params_file,
             'slam': 'False',
-            'map': map_file 
+            'map': map_dir
         }.items(),
     ),
   )
