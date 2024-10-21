@@ -29,9 +29,9 @@ source install/setup.sh
 
 ### LIB REQUIREMENTS
 
-    sudo apt install ros-foxy-gazebo-dev 
-    sudo apt install ros-foxy-gazebo-msgs 
-    sudo apt install ros-foxy-gazebo-ros
+    sudo apt install ros-humble-gazebo-dev 
+    sudo apt install ros-humble-gazebo-msgs 
+    sudo apt install ros-humble-gazebo-ros
 
 
 <https://github.com/mhernando/gz_rosa_control>
