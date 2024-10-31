@@ -1,13 +1,13 @@
 # rosa_description
 
-This include the xacro model for URDF besides other configuration and launcher files. This is also the main package for navigation and slam although it could be launched in different ways.
+This include the xacro model for URDF besides other configuration and launcher files. This is also the main package for navigation and slam, due to its nature linked to the URDF model and its transform tree, although it could be launched in different ways.
 
-## Instal dependencies
+## Install dependencies
 
     cd rosa_ws
     sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup
     sudo apt install ros-humble-slam-toolbox
-    rosdep install -i --from-path src
+    rosdep install -i --from-path src/rosa_robot/rosa_description
 
 ## config/
 <details>
@@ -97,7 +97,7 @@ This folder contains all the files generated after map the gazebo world. It is s
 <details>
 <summary>Expand to see folder's info</summary>
 
-This folder contains ROS2 launchers created for ROSA robot, SLAM and navigation. Most of them can be executed with differents arguments depending on the objective and they will launch processes on different ways to simulate on Gazebo or run the real robot. 
+This folder contains ROS2 launchers created for map and navigate with ROSA robot. Most of them can be executed with differents arguments depending on the objective and they will launch processes on different ways to simulate on Gazebo or run the real robot. 
 
 ### rosa_gazebo_launch.py
 
@@ -119,7 +119,7 @@ Load URDF model to work with ROS2 using real ROSA. Set "use_sim_time" param to f
 
 It will run "bringup_launch.py", it will also execute a pre-configured rviz2 with all necessary components. This launcher is supposed to be used both for SLAM and for navigation. Localization with AMCL wil always be active to help the robot to map and to navigate.
 
-It is necessary an active joint between the "odom" and "base_footprint" frames, so **one of the previous launcher should be executed first**
+It is necessary an active joint between the "odom" and "base_footprint" frames, so **one of the previous launcher should be executed first with the rosa_driver node if using the real robot**
 
     ros2 launch rosa_description rosa_nav_slam_launch.py
 
@@ -136,8 +136,13 @@ These are the specific launcher's arguments and their default value
 **Lidar topic /scan should always be active to properly navigate or doing SLAM**
 
 ### SLAM
+This way of launching rosa_nav_slam_launch.py execute **bringup_launch.py,** from the nav2_bringup package, which launch **slam_launch.py** using **online_sync_launch.py** from the slam_toolbox package.
 
     ros2 launch rosa_description rosa_nav_slam_launch.py slam:=True
+
+If you are using Gazebo and **not in the NUC of the robot**, it is recomended to edit slam_launch.py to launch online_async_launch.py. It is due to the async launcher is faster at the cost of a loss of quality on the map that does not really affect in the simulation.
+
+  sudo gedit /opt/ros/humble/share/nav2_bringup/launch/slam_launch.py
 
 Start moving the robot publishing in /cmd_vel or using goal pose and save the map using the SLAM plug-in openned in rviz2 
 * "save map" for .pgm and .yaml (necessary for navigation)
@@ -146,23 +151,18 @@ Start moving the robot publishing in /cmd_vel or using goal pose and save the ma
 Once you have your map files you can set it for navigation using launch arguments:
 
     ros2 launch rosa_description rosa_nav_slam_launch.py map:=(map.yaml path)
-
-Or by modifying "nav2_params.yaml" and changing "yaml_filename" param with your path to the map file:
-
-    map_server:
-        ros__parameters:
-            use_sim_time: True
-            # Overridden in launch by the "map" launch configuration or provided default value.
-            # To use in yaml, remove the default "map" value in the tb3_simulation_launch.py file & provide full path to map below.
-            yaml_filename: "${map without .yaml}"
     
 ### Navigation
+This way launches **bringup_launch.py,** from the nav2_bringup package.
 
-    ros2 launch rosa_description rosa_nav_slam_launch.py
+    ros2 launch rosa_description rosa_nav_slam_launch.py map:=(map.yaml path)
 
-Set the initial pose of the robot to initialize the map<->odom transform and start navigation by setting a goal pose. If navigation is working properly, "navigation" and "localization" should be shown as "active" down left the screen.
+The default map in this launcher is [gaz_world.yaml](gz_slam_map/gaz_world.yaml) and you have to use parameters to change it
 
-While the robot is moving the path planned should appear in the RVIZ visualizer. You can stop the navigation using the RVIZ nav2 plugin. You can also interrupt the movement if working with the real robot by using the remote controller but, either stopping or moving it to another place, the navigation planner will resume the movement to the goal pose once the controller is no loger intervening.
+The initial pose of the robot is set as a parameter to (0, 0, 0, 0) in [nav2_params.yaml](config/nav2_params.yaml). If it is not accurate set another initial pose using RVIZ.
+Start navigation by setting a goal pose. If navigation is working properly, "navigation" and "localization" should be shown as "active" down left the screen.
+
+While the robot is moving the path planned should appear in the RVIZ visualizer. You can stop the navigation using the RVIZ nav2 plugin. You can also interrupt the movement for a moment if working with the real robot by using the remote controller but, either stopping or moving it to another place, the navigation planner will resume the movement to the goal pose once the controller is no loger intervening.
 
 </details>
 

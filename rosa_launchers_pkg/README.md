@@ -1,11 +1,13 @@
 # rosa_launchers_pkg
 
-This package unifies launchers of the other ones to make it east to launch all components and functionalities at once.
+This package unifies launchers of the other ones to make it easy to launch all components and functionalities at once.
 It is divided in ROSA launchers (rosa.launch.py, rosa_slam.launch.py and rosa_navigation.launch.py) to work with the real robot, and simulation launchers (rosa_gazebo.launch.py, rosa_gazebo_slam.launch.py and rosa_gazebo_navigation.launch.py) to work with the Gazebo simulation.
 
 This package is intended to be a shortcut to work with ROSA if no specific components and functionalities need to be launched. All the processes that these launchers can run can also be runned with the individual launchers from the rest of the packages if the correct combination is done.
 
 **NONE OF THESE LAUNCHERS ARE USED IN THE ROSA MONITOR**
+
+**TO USE THIS LAUNCHERS DEPENDENCIES OF THE OTHER PACKAGES MUST BE INSTALLED**
 
 ## ROSA Launchers
 All ROSA launchers launch the URDF model from [rosa_description package](../rosa_description/description/rosa/), the transform node for odometry from [rosa_firmware_package](../rosa_firmware/rosa_driver/rosa_driver.cpp) and by default the [LiDAR node](../urg_node2/launch/urg_node2.launch.py) and the [RGBD Camera node](../rosa_camera/realsense-ros/realsense2_camera/launch/rs_launch.py) with the pointcloud.enable argument set to true. 

@@ -15,17 +15,11 @@
 [![Plugin demo with ROSA robot](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2FV3p5xCgLpGY)](https://youtu.be/V3p5xCgLpGY)
 
 ### install:
-```
-cd src/
-git clone https://github.com/mhernando/gz_rosa_control.git
-sudo rosdep init
-rosdep update
-rosdep install --from-paths src/gz_rosa_control -y --ignore-src
-colcon build --symlink-install
-source install/setup.sh
-```
 
-
+  cd rosa_ws()
+  sudo rosdep init
+  rosdep update
+  rosdep install --from-paths src/rosa_robot/gz_rosa_control -y --ignore-src
 
 ### LIB REQUIREMENTS
 

@@ -4,7 +4,7 @@ This folder contains the ROSA communication module demo. It is formed by a [Text
 
 ## TTS package
 
-It is cloned from the [audio_common repository](https://github.com/mgonzs13/audio_common) (follow the install instructions for the dependencies), which contains multiple nodes for using audio with ROS2. All of them are included in the ROSA project for possible future work although only **tts_node** and **audio_player_node** are used for the demo.
+It is cloned from the [audio_common repository](https://github.com/mgonzs13/audio_common) **(follow the install instructions for the dependencies)**, which contains multiple nodes for using audio with ROS2. All of them are included in the ROSA project for possible future work although only **tts_node** and **audio_player_node** are used for the demo.
 
 ### tts_node & modifications
 
@@ -12,7 +12,7 @@ This node contains a ROS Action called TTS which receives a string and modulate 
 
 ## STT package
 
-This package is entirely made for ROSA and uses the OpenAI library called [whisper](https://nlpcloud.com/es/how-to-install-and-deploy-whisper-the-best-open-source-alternative-to-google-speech-to-text.html) to transcribe the sound captured from the audio input.
+This package is entirely made for ROSA and uses the OpenAI library called [whisper](https://nlpcloud.com/es/how-to-install-and-deploy-whisper-the-best-open-source-alternative-to-google-speech-to-text.html) **(click to go to the install guide)** to transcribe the sound captured from the audio input.
 
 ### transcriber node
 
@@ -26,7 +26,7 @@ When the string is generated from the transcription it is send as a goal for the
 
 ## ROSA Audio Demo
 
-To make this demo a launcher called **rosa_voice.launch.py** is created in the [STT package](STT/voice_transcriber_pkg/launch/rosa_voice.launch.py).
+To make this demo, a launcher called **rosa_voice.launch.py** is created in the [STT package](STT/voice_transcriber_pkg/launch/rosa_voice.launch.py).
 
     ros2 launch voice_transcriber_pkg rosa_voice.launch.py
 
@@ -36,6 +36,6 @@ The launcher execute all the nodes and the demo execution process is:
 - transducer node starts recording
 - Once the sound is ended (silence detected) the node publish the text transduced from a temporary .wav in the topic /voice
 - The node also send a goal to the TTS node and waits for its execution
-  - The transcriber will close the audio stream when is transcribing because stream continue storing some audio after transcribing has started 
+  - The transcriber will close the audio stream when is transcribing because if not, stream continue storing some audio after transcribing has started 
 - transcriber node records again only if sound is detected, otherwise it will wait until that
 - The loop ends when user sends a shut-down command from the shell
