@@ -15,7 +15,7 @@ def generate_launch_description():
     slam_toolbox_launch_dir = os.path.join(
         get_package_share_directory('slam_toolbox'), 'launch')
     
-    slam_params = os.path.join(current_launch_dir, '../config', 'mapper_params_online_async.yaml')
+    slam_params = os.path.join(current_launch_dir, '../config', 'slam_params.yaml')
 
     return LaunchDescription([
         # Argument declaration

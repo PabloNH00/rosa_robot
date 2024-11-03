@@ -10,6 +10,16 @@ It is cloned from the [audio_common repository](https://github.com/mgonzs13/audi
 
 This node contains a ROS Action called TTS which receives a string and modulate the transcription to sound using the "eSpeak" library. A /voice subscriber is also added for ROSA to manage the STT->TTS communication through a topic (/voice) if necessary.
 
+Parameters for the TTS voice are specified in the action request goal that STT sends
+
+```python
+# Default values for TTS message
+self.language = 'es'
+self.rate = 0.4 
+self.volume = 0.5  
+self.gender = 'f1'
+```
+
 ## STT package
 
 This package is entirely made for ROSA and uses the OpenAI library called [whisper](https://nlpcloud.com/es/how-to-install-and-deploy-whisper-the-best-open-source-alternative-to-google-speech-to-text.html) **(click to go to the install guide)** to transcribe the sound captured from the audio input.

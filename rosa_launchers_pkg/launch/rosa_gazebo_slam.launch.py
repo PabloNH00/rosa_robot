@@ -25,7 +25,7 @@ def generate_launch_description():
   #necessary to launch bringup but not used for slam
   map_file = os.path.join(rosa_description_dir, 'gz_slam_map', 'gaz_world.yaml')
 
-  slam_params_file = os.path.join(rosa_description_dir, 'config', 'mapper_params_online_async.yaml')
+  slam_params_file = os.path.join(rosa_description_dir, 'config', 'slam_params.yaml')
   nav2_params_file = os.path.join(rosa_description_dir, 'config', 'nav2_params.yaml')
 
   slam_params_file = LaunchConfiguration('slam_params', default = slam_params_file)

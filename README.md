@@ -11,6 +11,7 @@ The firsts steps to work with ROSA are install ROS2 Humble [(click this link to 
 
     cd
     mkdir rosa_ws
+    cd rosa_ws
     mkdir src
     cd src
     git clone https://github.com/PabloNH00/rosa_robot.git

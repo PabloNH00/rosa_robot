@@ -21,7 +21,7 @@ rosa_slam and rosa_navigation launchers launch the default [rosa.launch.py](laun
   - "camera": true to launch realsense node. Default to true
   - All the urg_node2 and realsense launcher's nested arguments
 - **rosa_slam.launch.py**
-  - "slam_params": path to slam config. Default [mapper_aparms_online_async.yaml](../rosa_description/config/mapper_params_online_async.yaml)
+  - "slam_params": path to slam config. Default [slam_params.yaml](../rosa_description/config/slam_params.yaml)
   - "params_file": path to navigation config. Default [nav2_params.yaml](../rosa_description/config/nav2_params.yaml)
   - All the rosa.launch.py and bringup launcher's nested arguments
 - **rosa_navigation.launch.py**
@@ -37,7 +37,7 @@ rosa_gazebo_slam and rosa_gazebo_navigation launchers launch the default [rosa_g
 ### Launch Arguments
 
 - **rosa_gazebo_slam.launch.py**
-  - "slam_params": path to slam config. Default [mapper_aparms_online_async.yaml](../rosa_description/config/mapper_params_online_async.yaml)
+  - "slam_params": path to slam config. Default [slam_params.yaml](../rosa_description/config/slam_params.yaml)
   - "params_file": path to navigation config. Default [nav2_params.yaml](../rosa_description/config/nav2_params.yaml)
   - All the rosa_gazebo.launch.py and bringup launcher's nested arguments
 - **rosa_gazebo_navigation.launch.py**

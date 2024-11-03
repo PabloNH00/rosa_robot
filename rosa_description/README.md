@@ -15,7 +15,11 @@ This include the xacro model for URDF besides other configuration and launcher f
 
 This folder contains the parameters file for navigation and SLAM. Here are the explanation for the most important and changed parameters for the development.
 
-**load_pre_mapped_params_online_asinc.yaml and mapper_params_online_async.yaml are not used and may be outdated, but they are in the folder for possible future uses**
+**load_pre_mapped_params_online_async.yaml is not used and may be outdated, but it is in the folder for possible future uses**
+
+### slam_params.yaml
+
+This params file is a copy paste from the "slam_toolbox/config/mapper_params_online_async.yaml" (same as slam_toolbox/config/mapper_params_online_sync.yaml), but is included in the package to be modified easily if necessary.
 
 ### nav2_params_yaml
 
@@ -194,7 +198,7 @@ These are the specific launcher's arguments and their default value
 
 * use_sim_time: false
 * slam: False
-* slam_params: [mapper_params_online_async.yaml](config/mapper_params_online_async.yaml)
+* slam_params: [slam_params.yaml](config/slam_params.yaml)
 * params_file: [nav2_params.yaml](config/nav2_params.yaml)
 * map: gaz_world.yaml
 

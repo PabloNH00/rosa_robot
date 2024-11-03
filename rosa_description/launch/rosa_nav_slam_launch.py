@@ -15,7 +15,7 @@ def generate_launch_description():
 
     map_dir = os.path.join(current_launch_dir, '../gz_slam_map', 'gaz_world.yaml') 
     
-    slam_params_file = os.path.join(current_launch_dir, '../config', 'mapper_params_online_async.yaml')
+    slam_params_file = os.path.join(current_launch_dir, '../config', 'slam_params.yaml')
     nav2_params_file = os.path.join(current_launch_dir, '../config', 'nav2_params.yaml')
     nav2_launcher_dir = os.path.join(
         get_package_share_directory('nav2_bringup'))
@@ -63,7 +63,7 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time,
                 'params_file': nav2_params_file,
                 'slam': slam,
-                'slam_params_file': 'slam_params'
+                'slam_params_file': slam_params_file
             }.items(),
         ),
 
