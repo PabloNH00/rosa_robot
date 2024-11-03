@@ -146,7 +146,8 @@ lidar_sensor.xacro uses a type "ray" plugin configured to emulate the real hokuy
 
 realsense_d435.xacro uses a type "depth" plugin configured to emulate the real camera.
 
-For the omni_wheel.xacro the omnidirectional movement plugin is located in the [gz_rosa_control](../gz_rosa_control/) package, also included in the project.
+For the omni_wheel.xacro the omnidirectional movement plugin is located in the [gz_rosa_control](../gz_rosa_control/) package, also included in the project. This plugin creates a transform for the odometry when simulating with Gazebo
+
 
 </details>
 
@@ -178,11 +179,15 @@ Gazebo opens with preloaded URDF a world, which correspond to [pal_office.world]
 
 ![rosa_gazebo_launch.py](images/rosa_gazebo_launch.png)
 
+This launcher creates a joint between odom and base_footprint due to the [gz_rosa_control](../gz_rosa_control/README.md) package plugin
+
 ## rosa_urdf_launch.py
 
 Load URDF model to work with ROS2 using real ROSA. Set "use_sim_time" param to false and run "robot_state_publisher" with the [xacro model](description/rosa/).
 
     ros2 launch rosa_description rosa_urdf_launch.py
+
+This launcher does not create a joint between odom and base_footprint so [rosa_driver](../rosa_firmware/rosa_driver/README.md) node from rosa_firmware package must be launcher for this purpose.
 
 ## rosa_nav_slam_launch.py
 
@@ -211,7 +216,7 @@ This way of launching rosa_nav_slam_launch.py execute **bringup_launch.py,** fro
 
 If you are using Gazebo and **not in the NUC of the robot**, it is recomended to edit slam_launch.py to launch online_async_launch.py. It is due to the async launcher is faster at the cost of a loss of quality on the map that does not really affect in the simulation.
 
-  sudo gedit /opt/ros/humble/share/nav2_bringup/launch/slam_launch.py
+    sudo gedit /opt/ros/humble/share/nav2_bringup/launch/slam_launch.py
 
 Start moving the robot publishing in /cmd_vel or using goal pose and save the map using the SLAM plug-in openned in rviz2 
 * "save map" for .pgm and .yaml (necessary for navigation)

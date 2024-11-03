@@ -57,4 +57,4 @@ lidar_sensor.xacro uses a type "ray" plugin configured to emulate the real hokuy
 
 realsense_d435.xacro uses a type "depth" plugin configured to emulate the real camera.
 
-For the omni_wheel.xacro the omnidirectional movement plugin is located in the gz_rosa_control package, also included in the project.
+For the omni_wheel.xacro the omnidirectional movement plugin is located in the [gz_rosa_control](../../../gz_rosa_control/README.md) package, also included in the project. This plugin creates a transform for the odometry when simulating with Gazebo
