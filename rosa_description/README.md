@@ -83,6 +83,8 @@ As shown in the modifications, most of them are related to allow horizontal move
 
 DWBLocalPlanner is selected due to its performance during tests.
 
+Controller frequency is set to 20 although odom joint has a mean frequency of 16, it is due to the LiDAR's measure frequency, because it is also 20 (40 by default 20 with skip parameter) and has to match the controller frequency to locate the robot accurately.
+
 </details>
 
 ## description/rosa/

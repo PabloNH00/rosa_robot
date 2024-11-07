@@ -1,5 +1,5 @@
 # rosa_robot
-This repo contais all the ROS2 packages integrated into ROSA robot.
+This repository contais all the ROS2 packages integrated into ROSA robot.
 
 **Each package has its own README with more detailed information**, but this is an introduction to each one and to their dependencies.
 
