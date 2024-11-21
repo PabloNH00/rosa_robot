@@ -54,13 +54,21 @@ void setup()
     if(update_ros())//send odometry and status data to ros2
     {
         //deberia incluir un timeout que detecte si hay comunicacion
-        
         //DEBUG_PRINTF("x:%5.2F y:%5.2f yaw:%5.2F",x,y,yaw);
         //auto [x, y,yaw] = robot.get_odometry();
         //send_message(odometry_message(x,y,yaw));
-        auto [x, y,yaw, vx,vy,vyaw] = robot.get_extended_odometry();
-        send_message(extended_odometry_message(x,y,yaw,vx,vy,vyaw));
-        
+        //Alternate messages
+        static bool alt = true;
+        if(alt =! alt)
+        {
+            send_message(robot_data_message(robot.get_robot_data()));
+        }
+        else
+        {
+            auto [x, y, yaw, vx, vy, vyaw] = robot.get_extended_odometry();
+            send_message(extended_odometry_message(x,y,yaw,vx,vy,vyaw));     
+        }
+        // send_message(robot_data_message(robot.get_robot_data()));
     }
     if(update_wifi())send_wifi_regular_messages();
     
