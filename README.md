@@ -135,7 +135,7 @@ It is composed by differents folders (explained [here](rosa_description/README.m
 
 [This package](teleop_twist_qt/README.md) is a qtcreator application to virtualize a pair of joysticks that publish on the /cmd_vel topic. They have differential and omnidirectional mode of control.
 
-![Image of the gui](teleop_twist_qt/images/teleop_twist_capture.jpg)
+![Image of the gui](teleop_twist_qt_submodule/images/teleop_twist_capture.jpg)
 
 </details>
 
