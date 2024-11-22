@@ -53,10 +53,10 @@ private:
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odometry_pub;
 
   /// Robot data publishers
-  rclcpp::Publisher<nav_msgs::msg::Int32MultiArray>::SharedPtr current_vel_pub;
-  rclcpp::Publisher<nav_msgs::msg::Int32MultiArray>::SharedPtr target_vel_pub;
-  rclcpp::Publisher<nav_msgs::msg::Int32MultiArray>::SharedPtr encoder_count_pub;
-  rclcpp::Publisher<nav_msgs::msg::Float32>::SharedPtr battery_pub;
+  rclcpp::Publisher<std_msgs::msg::Int32MultiArray>::SharedPtr current_vel_pub;
+  rclcpp::Publisher<std_msgs::msg::Int32MultiArray>::SharedPtr target_vel_pub;
+  rclcpp::Publisher<std_msgs::msg::Int32MultiArray>::SharedPtr encoder_count_pub;
+  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr battery_pub;
 
   /// To broadcast TF
   std::shared_ptr<tf2_ros::TransformBroadcaster> odom_broadcaster;
