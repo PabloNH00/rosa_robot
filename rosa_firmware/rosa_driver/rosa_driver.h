@@ -9,7 +9,7 @@
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include "std_msgs/msg/int32_multi_array.hpp"
-# include "std_msgs/msg/float32.hpp"
+#include "std_msgs/msg/float32.hpp"
 
 //Package headers
 #include "msg_converters/converters.hpp"

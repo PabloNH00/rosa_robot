@@ -96,10 +96,10 @@ namespace ROSA{
     odom_msg.child_frame_id = robot_frame_id;
     transform_msg.child_frame_id = robot_frame_id;
     odometry_pub = create_publisher<nav_msgs::msg::Odometry>("/" + odometry_topic, 2);
-    current_vel_pub = create_publisher<nav_msgs::msg::Int32MultiArray>("/" + curr_vel_topic, 2);
-    target_vel_pub = create_publisher<nav_msgs::msg::Int32MultiArray>("/" + target_vel_topic, 2);
-    encoder_count_pub = create_publisher<nav_msgs::msg::Int32MultiArray>("/" + encoder_count_topic, 2);
-    battery_pub = create_publisher<nav_msgs::msg::Float32>("/" + battery_topic, 2);
+    current_vel_pub = create_publisher<std_msgs::msg::Int32MultiArray>("/" + curr_vel_topic, 2);
+    target_vel_pub = create_publisher<std_msgs::msg::Int32MultiArray>("/" + target_vel_topic, 2);
+    encoder_count_pub = create_publisher<std_msgs::msg::Int32MultiArray>("/" + encoder_count_topic, 2);
+    battery_pub = create_publisher<std_msgs::msg::Float32>("/" + battery_topic, 2);
     odom_broadcaster = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
     //suscriptors
@@ -136,7 +136,7 @@ namespace ROSA{
 
         m.read_array<int32_t>(rd.encoder_counts, 4);
         intarray32.data = {rd.encoder_counts[0], rd.encoder_counts[1], rd.encoder_counts[2], rd.encoder_counts[3]};
-        current_vel_pub->publish(intarray32);
+        encoder_count_pub->publish(intarray32);
 
         rd.battery_voltage = m.read<float>();
         battery.data = rd.battery_voltage;
