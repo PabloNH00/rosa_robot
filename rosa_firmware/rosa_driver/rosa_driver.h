@@ -8,6 +8,8 @@
 #include <nav_msgs/msg/odometry.hpp>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <tf2_ros/transform_broadcaster.h>
+#include "std_msgs/msg/int32_multi_array.hpp"
+# include "std_msgs/msg/float32.hpp"
 
 //Package headers
 #include "msg_converters/converters.hpp"
@@ -23,7 +25,7 @@
 namespace ROSA{
 class RosaDriver : public rclcpp::Node
 {    
-  std::string frame_id, robot_frame_id, odometry_topic, cmd_topic;
+  std::string frame_id, robot_frame_id, odometry_topic, cmd_topic, curr_vel_topic, target_vel_topic, encoder_count_topic, bettery_topic;
 
 public:
   RosaDriver() : Node("rosa_driver_node"){}
@@ -49,6 +51,12 @@ private:
 
   /// Odometry publisher
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odometry_pub;
+
+  /// Robot data publishers
+  rclcpp::Publisher<nav_msgs::msg::Int32MultiArray>::SharedPtr current_vel_pub;
+  rclcpp::Publisher<nav_msgs::msg::Int32MultiArray>::SharedPtr target_vel_pub;
+  rclcpp::Publisher<nav_msgs::msg::Int32MultiArray>::SharedPtr encoder_count_pub;
+  rclcpp::Publisher<nav_msgs::msg::Float32>::SharedPtr battery_pub;
 
   /// To broadcast TF
   std::shared_ptr<tf2_ros::TransformBroadcaster> odom_broadcaster;

@@ -19,7 +19,7 @@ namespace ROSA{
       throw ex;
     }
     /////PARAM2: baud_rate////////////////////////////////////
-    uint32_t baud_rate{38400};
+    uint32_t baud_rate{115200};
     try {
       baud_rate = declare_parameter<int>("baud_rate", baud_rate);
     } catch (rclcpp::ParameterTypeException & ex) {
@@ -57,6 +57,34 @@ namespace ROSA{
       RCLCPP_ERROR(get_logger(), "The command topic provided was invalid");
       throw ex;
     }
+    curr_vel_topic = "current_vel";
+    try {
+      curr_vel_topic = declare_parameter<string>("curr_vel_topic", curr_vel_topic);
+    }catch (rclcpp::ParameterTypeException & ex) {
+      RCLCPP_ERROR(get_logger(), "The curr_vel_topic provided was invalid");
+      throw ex;
+    }
+    target_vel_topic = "target_vel";
+    try {
+      target_vel_topic = declare_parameter<string>("target_vel_topic", target_vel_topic);
+    }catch (rclcpp::ParameterTypeException & ex) {
+      RCLCPP_ERROR(get_logger(), "The target_vel_topic provided was invalid");
+      throw ex;
+    }
+    encoder_count_topic = "encoder_count";
+    try {
+      encoder_count_topic = declare_parameter<string>("encoder_count_topic", encoder_count_topic);
+    }catch (rclcpp::ParameterTypeException & ex) {
+      RCLCPP_ERROR(get_logger(), "The encoder_count_topic provided was invalid");
+      throw ex;
+    }
+    battery_topic = "battery";
+    try {
+      battery_topic = declare_parameter<string>("battery_topic", battery_topic);
+    }catch (rclcpp::ParameterTypeException & ex) {
+      RCLCPP_ERROR(get_logger(), "The battery_topic provided was invalid");
+      throw ex;
+    }
     
     //initialize SerialPort handler
     
@@ -68,6 +96,10 @@ namespace ROSA{
     odom_msg.child_frame_id = robot_frame_id;
     transform_msg.child_frame_id = robot_frame_id;
     odometry_pub = create_publisher<nav_msgs::msg::Odometry>("/" + odometry_topic, 2);
+    current_vel_pub = create_publisher<nav_msgs::msg::Int32MultiArray>("/" + curr_vel_topic, 2);
+    target_vel_pub = create_publisher<nav_msgs::msg::Int32MultiArray>("/" + target_vel_topic, 2);
+    encoder_count_pub = create_publisher<nav_msgs::msg::Int32MultiArray>("/" + encoder_count_topic, 2);
+    battery_pub = create_publisher<nav_msgs::msg::Float32>("/" + battery_topic, 2);
     odom_broadcaster = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
     //suscriptors
@@ -87,6 +119,30 @@ namespace ROSA{
   {
     while(hw_ptr->there_is_message()){
       auto m = hw_ptr->get_message();
+      if(m.id == ROSA_ROBOT_DATA)
+      {
+        RobotData rd;
+
+        auto intarray32 = std_msgs::msg::Int32MultiArray();
+        auto battery = std_msgs::msg::Float32();
+
+        m.read_array<int32_t>(rd.current_velocity, 4);
+        intarray32.data = {rd.current_velocity[0], rd.current_velocity[1], rd.current_velocity[2], rd.current_velocity[3]};
+        current_vel_pub->publish(intarray32);
+
+        m.read_array<int32_t>(rd.target_velocity, 4);
+        intarray32.data = {rd.target_velocity[0], rd.target_velocity[1], rd.target_velocity[2], rd.target_velocity[3]};
+        target_vel_pub->publish(intarray32);
+
+        m.read_array<int32_t>(rd.encoder_counts, 4);
+        intarray32.data = {rd.encoder_counts[0], rd.encoder_counts[1], rd.encoder_counts[2], rd.encoder_counts[3]};
+        current_vel_pub->publish(intarray32);
+
+        rd.battery_voltage = m.read<float>();
+        battery.data = rd.battery_voltage;
+        battery_pub->publish(battery);
+        
+      }
       if(m.id == ROSA_ODOMETRY){
         float pos_x=m.read<float>();
         float pos_y=m.read<float>();
