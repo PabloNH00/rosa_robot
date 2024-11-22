@@ -25,7 +25,7 @@
 namespace ROSA{
 class RosaDriver : public rclcpp::Node
 {    
-  std::string frame_id, robot_frame_id, odometry_topic, cmd_topic, curr_vel_topic, target_vel_topic, encoder_count_topic, bettery_topic;
+  std::string frame_id, robot_frame_id, odometry_topic, cmd_topic, curr_vel_topic, target_vel_topic, encoder_count_topic, battery_topic;
 
 public:
   RosaDriver() : Node("rosa_driver_node"){}
