@@ -48,12 +48,6 @@ To install this package's dependencies it is necessary to follow the [install on
 
 You need to install librealsense2 to work with the the RGBD camera node. It is a SDK made by realsense, which contains all the libraries to run realsense cameras. It is also guided in the previous link
 
-On rosa_camera/config/ there is a yaml file with a parameters configuration to reduce the resolution and FPS of the RGBD Camera. It is necessary to the camera to work porperly on ROSA due to issues with the wire velocity. It will also stablish the camera name for the frames and enable pointcloud to use data in 3D
-
-To launch for ROSA use:
-
-    ros2 launch realsense2_camera rs_launch.py config_file:= src/rosa_robot/rosa_camera/config/camera_config.yaml
-
 ### rosa_description
 
     cd rosa_ws
@@ -100,6 +94,12 @@ This plugin is already included in the xacro model.
 
 This is a package fully cloned from a [realsense repository](https://github.com/IntelRealSense/realsense-ros/tree/ros2-master) and used to launch RGBD camera nodes.
 To use this it is necessary to strictly follow the installation guide, both the ROS2 package and the realsense library.
+
+On rosa_camera/config/ there is a yaml file with a parameters configuration to reduce the resolution and FPS of the RGBD Camera. It is necessary to the camera to work porperly on ROSA due to issues with the wire velocity. It will also stablish the camera name for the frames and enable pointcloud to use data in 3D
+
+To launch for ROSA use:
+
+    ros2 launch realsense2_camera rs_launch.py config_file:= src/rosa_robot/rosa_camera/config/camera_config.yaml
 
 </details>
 
