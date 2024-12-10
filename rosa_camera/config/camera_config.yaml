@@ -1,5 +1,5 @@
 camera_name: camera
 depth_module.depth_profile: 640X480X15
-pointcloud-enable: True
+pointcloud.enable: True
 depth_module.color_profile: 640X480X15
 rgb_camera.color_profile: 640X480X15
