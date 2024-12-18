@@ -61,7 +61,12 @@ def generate_launch_description():
     PythonLaunchDescriptionSource(
       [camera_dir, '/launch/rs_launch.py']
     ),
-    launch_arguments={'pointcloud.enable': "true"}.items(),
+    launch_arguments={'pointcloud.enable': "true",
+                      'camera_name': "camera",
+                      'depth_module.depth_profile': "640X480X15",
+                      'depth_module.color_profile': "640X480X15",
+                      'rgb_camera.color_profile': "640X480X15"
+                      }.items(),
     condition=LaunchConfigurationNotEquals('camera', 'false'),
     )   
   )  
