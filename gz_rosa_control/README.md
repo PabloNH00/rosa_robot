@@ -16,10 +16,10 @@
 
 ### install:
 
-  cd rosa_ws()
-  sudo rosdep init
-  rosdep update
-  rosdep install --from-paths src/rosa_robot/gz_rosa_control -y --ignore-src
+    cd rosa_ws
+    sudo rosdep init
+    rosdep update
+    rosdep install --from-paths src/rosa_robot/gz_rosa_control -y --ignore-src
 
 ### LIB REQUIREMENTS
 
